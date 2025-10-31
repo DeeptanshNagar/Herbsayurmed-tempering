@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian's Carlee Cal - Coral Calcium for Bones & Beauty | Herbsayurmed</title>
+    <meta name="description" content="Indian's Carlee Cal - Natural coral calcium tablets for strong bones, joint health, and beauty. 100% natural coral grain supplement.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-ayurveda { background: linear-gradient(135deg, #065f46 0%, #10b981 50%, #84cc16 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); }
+        .sticky-cart { position: sticky; top: 100px; z-index: 10; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <nav class="fixed w-full bg-white/95 backdrop-blur-md z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <img src="../images/logo-bg.png" alt="Herbsayurmed Logo" class="h-10">
+                    <span class="text-xl font-bold text-green-700">Herbsayurmed</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="../index.html" class="text-gray-700 hover:text-green-600">Home</a>
+                    <a href="../index.html#products" class="text-gray-700 hover:text-green-600">Products</a>
+                    <a href="../index.html#about" class="text-gray-700 hover:text-green-600">About</a>
+                    <a href="../index.html#contact" class="text-gray-700 hover:text-green-600">Contact</a>
+                    <div class="relative">
+                        <a href="#" onclick="showMiniCart()" class="text-gray-700 relative cursor-pointer">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cart-count" class="absolute -top-1 -right-3 bg-red-600 text-white text-xs rounded-full px-2">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-20 pb-4 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <nav class="text-sm text-gray-600">
+                <a href="../index.html" class="hover:text-green-600">Home</a> 
+                <span class="mx-2">/</span>
+                <a href="../index.html#products" class="hover:text-green-600">Products</a>
+                <span class="mx-2">/</span>
+                <span class="text-green-700 font-semibold">Indian's Carlee Cal</span>
+            </nav>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-8">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="aspect-rectangle bg-gray-100 rounded-xl overflow-hidden">
+                            <img id="main-image" src="../images/carlee-cal.JPG" alt="Indian's Carlee Cal" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex space-x-2">
+                            <img src="../images/carlee-cal.JPG" alt="Front view" class="w-16 h-16 object-cover rounded-lg cursor-pointer border-2 border-green-500" onclick="changeMainImage(this.src)">
+                            <img src="../images/carlee-cal.JPG" alt="Side view" class="w-16 h-16 object-cover rounded-lg cursor-pointer border-2 border-gray-200 hover:border-green-500" onclick="changeMainImage(this.src)">
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <h1 class="text-3xl font-bold text-green-800 mb-2">Indian's Carlee Cal</h1>
+                            <p class="text-lg text-orange-600 font-semibold">Coral Calcium for Bone and Beauty</p>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <div class="flex text-yellow-500">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600">(4.7/5 - 892 reviews)</span>
+                        </div>
+
+                        <div class="flex items-center space-x-3">
+                            <span class="text-4xl font-bold text-green-700">₹299</span>
+                            <span class="text-xl text-gray-500 line-through">₹399</span>
+                            <span class="bg-red-100 text-red-800 text-sm px-3 py-1 rounded-full font-semibold">25% OFF</span>
+                        </div>
+
+                        <div class="bg-purple-50 rounded-lg p-4">
+                            <h3 class="font-semibold text-purple-800 mb-2">Key Benefits:</h3>
+                            <ul class="space-y-1 text-sm text-purple-700">
+                                <li><i class="fas fa-check mr-2"></i>Supports bone strength & density</li>
+                                <li><i class="fas fa-check mr-2"></i>Reduces osteoporosis risk</li>
+                                <li><i class="fas fa-check mr-2"></i>Promotes healthy skin & beauty</li>
+                                <li><i class="fas fa-check mr-2"></i>100% natural coral grain</li>
+                            </ul>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">For Women</span>
+                            <span class="bg-pink-100 text-pink-800 text-xs px-2 py-1 rounded-full">Beauty Support</span>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Bone Health</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">All Natural</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Cart (shown only on mobile, hidden on desktop) -->
+<div class="lg:hidden mb-8">
+    <div class="bg-white rounded-2xl shadow-lg p-6">
+        <!-- Copy ALL the cart content here - same as desktop version -->
+        <div class="space-y-4">
+            <div class="flex items-center space-x-2">
+                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span class="text-green-700 font-semibold">In Stock</span>
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Quantity:</label>
+                <select id="quantity-mobile" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600">
+                    <option value="1">1 Bottle</option>
+                    <option value="2">2 Bottles</option>
+                    <option value="3">3 Bottles (Recommended)</option>
+                    <option value="4">4 Bottles</option>
+                    <option value="5">5 Bottles</option>
+                </select>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4">
+                <div class="flex justify-between items-center">
+                    <span>Price:</span>
+                    <span id="total-price-mobile" class="text-xl font-bold text-green-700">₹399</span>
+                </div>
+                <div class="flex justify-between items-center text-sm text-gray-600 mt-1">
+                    <span>You Save:</span>
+                    <span id="total-savings-mobile" class="text-green-600">₹100</span>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <button onclick="addToCartFromProduct()" 
+                    class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition">
+                    <i class="fas fa-shopping-cart mr-2"></i>Add to Cart
+                </button>
+                <button onclick="buyNowFromProduct()" 
+                    class="w-full bg-orange-500 text-white py-3 rounded-lg font-bold hover:bg-orange-600 transition">
+                    <i class="fas fa-bolt mr-2"></i>Buy Now
+                </button>
+            </div>
+
+            <div class="border-t pt-4 space-y-2 text-sm">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-truck text-green-600"></i>
+                    <span>Shipping: ₹50</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-money-bill text-blue-600"></i>
+                    <span>Cash on Delivery available</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="bg-white rounded-2xl shadow-lg p-6" style="z-index: 1;">
+                <h2 class="text-2xl font-bold text-green-800 mb-4">Product Description</h2>
+                <div class="prose max-w-none text-gray-700 space-y-4">
+                    <p>
+                        Indian's Carlee Cal is a premium coral calcium supplement derived from natural coral grains. 
+                        Coral calcium is 2.5 times more effective than regular calcium carbonate, providing superior 
+                        absorption and bioavailability for optimal bone health and overall wellness.
+                    </p>
+                    <p>
+                        This unique formulation not only strengthens bones and joints but also promotes healthy skin, 
+                        hair, and nails - making it the perfect choice for women looking to maintain both internal 
+                        health and external beauty naturally.
+                    </p>
+
+                    <h3 class="text-xl font-semibold text-green-800 mt-6">Why Coral Calcium is Superior:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Contains 74 essential minerals in optimal ratios</li>
+                        <li>Higher absorption rate than regular calcium</li>
+                        <li>Alkaline pH helps maintain body's pH balance</li>
+                        <li>Natural source with no artificial additives</li>
+                        <li>Supports collagen production for skin elasticity</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl shadow-lg p-6" style="z-index: 1;">
+                    <h3 class="text-xl font-bold text-green-800 mb-4">Key Minerals</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>Coral Calcium</strong> - 500mg per tablet</li>
+                        <li><strong>Magnesium</strong> - 250mg</li>
+                        <li><strong>Vitamin D3</strong> - 400 IU</li>
+                        <li><strong>Trace Minerals</strong> - 74 types</li>
+                    </ul>
+                    <p class="text-sm text-gray-600 mt-4">60 tablets per bottle</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6" style="z-index: 1;">
+                    <h3 class="text-xl font-bold text-green-800 mb-4">How to Use</h3>
+                    <div class="space-y-3 text-gray-700">
+                        <p><strong>Dosage:</strong> 1-2 tablets daily</p>
+                        <p><strong>When:</strong> After meals</p>
+                        <p><strong>With:</strong> Plenty of water</p>
+                        <p><strong>Duration:</strong> Minimum 3 months recommended</p>
+                        <p class="text-sm text-blue-600 bg-blue-50 p-2 rounded">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            Best results with regular use
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg p-6" style="z-index: 1;">
+                <h3 class="text-2xl font-bold text-green-800 mb-6">Customer Reviews</h3>
+                <div class="space-y-6">
+                    <div class="border-b border-gray-100 pb-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">S</div>
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="font-semibold text-gray-800">Sunita Gupta</span>
+                                    <div class="flex text-yellow-500 text-sm">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-gray-500 text-sm">4 months ago</span>
+                                </div>
+                                <p class="text-gray-700">At 55, my bones feel stronger than ever. Joint pain has reduced significantly. My skin also looks healthier!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg p-6" style="z-index: 1;">
+                <h3 class="text-xl font-bold text-green-800 mb-4">Frequently Asked Questions</h3>
+                <div class="space-y-4">
+                    <div class="border-b border-gray-100 pb-3">
+                        <h4 class="font-semibold text-gray-800 mb-2">Who should take Carlee Cal?</h4>
+                        <p class="text-sm text-gray-600">Women above 30, post-menopausal women, anyone with bone health concerns, or those wanting to prevent osteoporosis.</p>
+                    </div>
+                    <div class="border-b border-gray-100 pb-3">
+                        <h4 class="font-semibold text-gray-800 mb-2">How is it different from regular calcium?</h4>
+                        <p class="text-sm text-gray-600">Coral calcium has 2.5x better absorption, contains 74 minerals, and is naturally alkaline.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Can men take it too?</h4>
+                        <p class="text-sm text-gray-600">Yes! While marketed for women, men can also benefit from improved bone health and mineral supplementation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-6 lg:block">
+            <div class="bg-white rounded-2xl shadow-lg p-6 sticky-cart">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        <span class="text-green-700 font-semibold">In Stock</span>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Quantity:</label>
+                        <select id="quantity" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600">
+                            <option value="1">1 Bottle (60 tablets)</option>
+                            <option value="2">2 Bottles</option>
+                            <option value="3">3 Bottles (Recommended)</option>
+                            <option value="4">4 Bottles</option>
+                            <option value="5">5 Bottles</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="flex justify-between items-center">
+                            <span>Price:</span>
+                            <span id="total-price" class="text-xl font-bold text-green-700">₹299</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm text-gray-600 mt-1">
+                            <span>You Save:</span>
+                            <span id="total-savings" class="text-green-600">₹100</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <button onclick="addToCartFromProduct()" 
+                            class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition">
+                            <i class="fas fa-shopping-cart mr-2"></i>Add to Cart
+                        </button>
+                        <button onclick="buyNowFromProduct()" 
+                            class="w-full bg-orange-500 text-white py-3 rounded-lg font-bold hover:bg-orange-600 transition">
+                            <i class="fas fa-bolt mr-2"></i>Buy Now
+                        </button>
+                    </div>
+
+                    <div class="border-t pt-4 space-y-2 text-sm">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-truck text-green-600"></i>
+                            <span>Shipping: ₹50</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-money-bill text-blue-600"></i>
+                            <span>Cash on Delivery available</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-undo text-purple-600"></i>
+                            <span>7-day return policy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="max-w-7xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Recommended Products</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                <div class="h-48"><img src="../images/Giloy-ras.JPG" alt="Giloy Ras" class="w-full h-full object-cover"></div>
+                <div class="p-4">
+                    <h3 class="font-bold text-lg text-green-800 mb-2">Giloy Ras</h3>
+                    <p class="text-gray-600 text-sm mb-3">Immunity booster</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-green-700">₹350</span>
+                        <a href="giloy-ras.html" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        function updateCartCount() { document.getElementById("cart-count").textContent = cart.reduce((total, item) => total + item.qty, 0); }
+        function changeMainImage(src) { document.getElementById("main-image").src = src; }
+        document.getElementById('quantity').addEventListener('change', function() {
+            const qty = parseInt(this.value);
+            document.getElementById('total-price').textContent = `₹${299 * qty}`;
+            document.getElementById('total-savings').textContent = `₹${100 * qty}`;
+        });
+        function addToCartFromProduct() {
+            const qty = parseInt(document.getElementById('quantity').value);
+            const existingItem = cart.find(item => item.name === "Carlee Cal");
+            if (existingItem) { existingItem.qty += qty; } 
+            else { cart.push({ id: Date.now(), name: "Carlee Cal", price: 299, image: "../images/carlee-cal.JPG", qty: qty }); }
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartCount();
+            alert(`${qty}x Carlee Cal added to cart!`);
+        }
+        function buyNowFromProduct() {
+            const qty = parseInt(document.getElementById('quantity').value);
+            localStorage.setItem("cart", JSON.stringify([{ id: Date.now(), name: "Carlee Cal", price: 299, image: "../images/carlee-cal.JPG", qty: qty }]));
+            window.location.href = "../checkout.html";
+        }
+        function showMiniCart() {
+            if (cart.length === 0) { alert('Your cart is empty!'); return; }
+            const cartItems = cart.map(item => `${item.name} (${item.qty}x) - ₹${item.price * item.qty}`).join('\n');
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            if (confirm(`Cart Items:\n${cartItems}\n\nTotal: ₹${total}\n\nGo to checkout?`)) { window.location.href = '../checkout.html'; }
+        }
+        document.addEventListener("DOMContentLoaded", updateCartCount);
+    </script>
+</body>
+</html>

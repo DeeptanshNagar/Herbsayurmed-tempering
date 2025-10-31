@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Herbsayurmed</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Razorpay Checkout Script -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+<body class="bg-gray-50">
+  <!-- Navbar (Keeping your exact design) -->
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img src="images/logo-bg.png" alt="Herbsayurmed" class="h-10">
+        <h1 class="text-2xl font-bold text-green-700">Herbsayurmed</h1>
+      </div>
+      <a href="index.html" class="text-sm text-orange-600 font-semibold hover:underline">← Continue Shopping</a>
+    </div>
+  </header>
+
+  <!-- Checkout Section (Keeping your grid layout) -->
+  <section class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Left: Shipping Form (Enhanced with more fields) -->
+    <div class="lg:col-span-2 bg-white p-8 rounded-2xl shadow-lg">
+      <h2 class="text-2xl font-bold text-green-700 mb-6">Shipping Details</h2>
+      <form id="checkout-form" class="space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700">Full Name *</label>
+            <input type="text" name="name" required
+              class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700">Phone *</label>
+            <input type="tel" name="phone" required pattern="[0-9]{10}"
+              class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700">Email *</label>
+          <input type="email" name="email" required
+            class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700">Complete Address *</label>
+          <textarea name="address" rows="3" required placeholder="House/Flat No, Street, Locality"
+            class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none"></textarea>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700">City *</label>
+            <input type="text" name="city" required
+              class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700"></label>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">State *</label>
+              <select name="state" required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none">
+                <option value="">Select State</option>
+                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu
+                </option>
+                <option value="Delhi">Delhi</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Ladakh">Ladakh</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Puducherry">Puducherry</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700">Pincode *</label>
+            <input type="text" name="pincode" required pattern="[0-9]{6}"
+              class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:outline-none">
+          </div>
+        </div>
+
+        <!-- Payment Method Selection -->
+        <div class="mt-6">
+          <h3 class="text-lg font-semibold text-gray-700 mb-3">Payment Method</h3>
+          <div class="space-y-2">
+            <label
+              class="flex items-center space-x-2 cursor-pointer p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+              <input type="radio" name="payment_method" value="online" checked class="text-green-600">
+              <span>💳 Online Payment (Cards/UPI/Net Banking)</span>
+            </label>
+            <label
+              class="flex items-center space-x-2 cursor-pointer p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+              <input type="radio" name="payment_method" value="cod" class="text-green-600">
+              <span>💵 Cash on Delivery</span>
+            </label>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Right: Order Summary (Enhanced) -->
+    <div class="bg-white p-8 rounded-2xl shadow-lg">
+      <h2 class="text-2xl font-bold text-green-700 mb-6">Order Summary 🛒</h2>
+
+      <!-- Cart Items with Quantity Controls -->
+      <div id="cart-summary" class="space-y-4 mb-6">
+        <!-- Cart items will load here -->
+      </div>
+
+      <!-- Pricing Breakdown -->
+      <div class="border-t pt-4 space-y-2">
+        <div class="flex justify-between text-sm">
+          <span>Subtotal:</span>
+          <span id="subtotal">₹0</span>
+        </div>
+        <div class="flex justify-between text-sm">
+          <span>Shipping:</span>
+          <span id="shipping-cost">₹80</span>
+        </div>
+        <div class="flex justify-between text-sm text-green-600" id="discount-row" style="display: none;">
+          <span>Discount:</span>
+          <span id="discount">-₹0</span>
+        </div>
+        <div class="border-t pt-2 flex justify-between font-bold text-lg">
+          <span>Total:</span>
+          <span id="cart-total">₹0</span>
+        </div>
+      </div>
+
+      <!-- Place Order Button -->
+      <button onclick="proceedToPay()" id="place-order-btn"
+        class="w-full bg-orange-500 text-white py-3 px-6 rounded-lg font-bold hover:bg-orange-600 transition mt-6">
+        <i class="fas fa-lock mr-2"></i>Place Order
+      </button>
+
+      <!-- Security Note -->
+      <div class="mt-4 text-center text-xs text-gray-500">
+        <i class="fas fa-shield-alt mr-1"></i>
+        Your payment information is secure and encrypted
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Modal -->
+  <div id="success-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center">
+      <div class="text-6xl text-green-600 mb-4">✅</div>
+      <h2 class="text-2xl font-bold text-green-700 mb-4">Order Placed Successfully!</h2>
+      <p class="text-gray-600 mb-6">Thank you for your order. You'll receive a confirmation email shortly.</p>
+      <div class="bg-gray-50 rounded-lg p-4 mb-6">
+        <p class="text-sm font-semibold">Order ID: <span id="order-id" class="text-green-600">#</span></p>
+      </div>
+      <button onclick="goHome()" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700">
+        Continue Shopping
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Initialize checkout page
+    document.addEventListener("DOMContentLoaded", function () {
+      if (cart.length === 0) {
+        alert("Your cart is empty! Redirecting to products page.");
+        window.location.href = "index.html#products";
+        return;
+      }
+
+      renderCart();
+      calculateTotals();
+    });
+
+    // Enhanced cart rendering with quantity controls
+    function renderCart() {
+      const summary = document.getElementById("cart-summary");
+      summary.innerHTML = "";
+
+      cart.forEach((item, index) => {
+        summary.innerHTML += `
+          <div class="border border-gray-100 rounded-lg p-4">
+            <div class="flex items-center space-x-4">
+              <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-lg object-cover">
+              <div class="flex-1">
+                <p class="font-semibold text-gray-800">${item.name}</p>
+                <p class="text-sm text-gray-600">₹${item.price} each</p>
+                
+                <!-- Quantity Controls -->
+                <div class="flex items-center space-x-2 mt-2">
+                  <button onclick="updateQuantity(${index}, ${item.qty - 1})" 
+                    class="w-6 h-6 bg-gray-200 rounded-full text-sm hover:bg-gray-300 flex items-center justify-center" 
+                    ${item.qty <= 1 ? 'disabled style="opacity:0.5"' : ''}>-</button>
+                  <span class="px-2 text-sm font-semibold">${item.qty}</span>
+                  <button onclick="updateQuantity(${index}, ${item.qty + 1})" 
+                    class="w-6 h-6 bg-gray-200 rounded-full text-sm hover:bg-gray-300 flex items-center justify-center" 
+                    ${item.qty >= 10 ? 'disabled style="opacity:0.5"' : ''}>+</button>
+                  <button onclick="removeItem(${index})" 
+                    class="ml-2 text-red-500 hover:text-red-700 text-xs">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="font-bold text-lg">₹${item.price * item.qty}</p>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // Update quantity function
+    function updateQuantity(index, newQty) {
+      if (newQty <= 0) {
+        removeItem(index);
+        return;
+      }
+
+      if (newQty > 10) {
+        alert("Maximum 10 items allowed per product");
+        return;
+      }
+
+      cart[index].qty = newQty;
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+      calculateTotals();
+    }
+
+    // Remove item function
+    function removeItem(index) {
+      if (confirm("Remove this item from cart?")) {
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        if (cart.length === 0) {
+          alert("Cart is now empty! Redirecting to products.");
+          window.location.href = "index.html#products";
+          return;
+        }
+
+        renderCart();
+        calculateTotals();
+      }
+    }
+
+    // Calculate totals
+    function calculateTotals() {
+      const subtotal = cart.reduce((total, item) => total + (item.price * item.qty), 0);
+      //const shippingCost = subtotal >= 500 ? 0 : 50; // Free shipping above ₹500
+      const shippingCost = 80; // Flat ₹80 shipping
+      const discount = 0; // You can add discont logic here
+      const finalTotal = subtotal + shippingCost - discount;
+
+      document.getElementById("subtotal").textContent = `₹${subtotal}`;
+      //document.getElementById("shipping-cost").textContent = shippingCost === 0 ? "FREE" : `₹${shippingCost}`;
+      document.getElementById("shipping-cost").textContent = `₹${shippingCost}`;
+      document.getElementById("discount").textContent = `-₹${discount}`;
+      document.getElementById("cart-total").textContent = `₹${finalTotal}`;
+
+      // Show/hide discount row
+      if (discount > 0) {
+        document.getElementById("discount-row").style.display = "flex";
+      }
+    }
+
+    // Proceed to payment
+    function proceedToPay() {
+      const form = document.getElementById("checkout-form");
+      const formData = new FormData(form);
+
+      // Validate form
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Calculate totals
+      const subtotal = cart.reduce((total, item) => total + (item.price * item.qty), 0);
+      const shipping = 80; // Flat ₹80 shipping
+      //const shipping = subtotal >= 500 ? 0 : 50; // Free shipping
+      const finalTotal = subtotal + shipping;
+
+      // Collect order data
+      const orderData = {
+        customer: {
+          name: formData.get("name"),
+          phone: formData.get("phone"),
+          email: formData.get("email"),
+          address: formData.get("address"),
+          city: formData.get("city"),
+          state: formData.get("state"),
+          pincode: formData.get("pincode")
+        },
+        items: cart,
+        subtotal: subtotal,
+        shipping: shipping,
+        total: finalTotal
+      };
+
+      const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+
+      if (paymentMethod === "cod") {
+        processCODOrder(orderData);
+      } else {
+        initializeRazorpay(orderData);
+      }
+    }
+
+    // Initialize Razorpay payment
+    // Initialize Razorpay payment
+function initializeRazorpay(orderData) {
+  const btn = document.getElementById("place-order-btn");
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing...';
+
+  // Fetch Razorpay key and create order
+  Promise.all([
+    fetch("http://localhost:5000/get-razorpay-key").then(res => res.json()),
+    fetch("http://localhost:5000/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: orderData.total, currency: "INR" })
+    }).then(res => res.json())
+  ])
+  .then(([keyData, order]) => {  // ✅ FIXED: Added parentheses for destructuring
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-lock mr-2"></i>Place Order';
+
+    const options = {
+      key: keyData.key,
+      amount: order.amount,
+      currency: order.currency,
+      order_id: order.id,
+      name: "Herbsayurmed Pharmaceuticals",
+      description: "Ayurvedic Products Order",
+      image: "images/logo-bg.png",
+      prefill: {
+        name: orderData.customer.name,
+        email: orderData.customer.email,
+        contact: orderData.customer.phone
+      },
+      notes: {
+        address: orderData.customer.address,
+        city: orderData.customer.city
+      },
+      theme: { color: "#059669" },
+      handler: function (response) {
+        console.log("Payment successful:", response);
+        
+        fetch("http://localhost:5000/save-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            orderData: orderData,
+            payment: response
+          })
+        })
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to save order');
+          return res.json();
+        })
+        .then(data => {
+          if (data.success) {
+            showSuccessModal(data.orderId);
+            clearCart();
+          } else {
+            alert("Order verification failed: " + (data.error || "Unknown error"));
+          }
+        })
+        .catch(err => {
+          console.error("Error saving order:", err);
+          alert("Payment successful but order save failed. Please contact support with payment ID: " + response.razorpay_payment_id);
+        });
+      },
+      modal: {
+        ondismiss: function() {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-lock mr-2"></i>Place Order';
+        }
+      }
+    };
+
+    const rzp = new Razorpay(options);
+    
+    rzp.on('payment.failed', function (response) {
+      console.error("Payment failed:", response.error);
+      alert("Payment failed: " + response.error.description);
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-lock mr-2"></i>Place Order';
+    });
+
+    rzp.open();
+  })
+  .catch(err => {
+    console.error("Error:", err);
+    alert("Something went wrong. Please try again.");
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-lock mr-2"></i>Place Order';
+  });
+}
+    // Process COD order
+    // Process COD order
+function processCODOrder(orderData) {
+  const orderId = "HSM" + Date.now();
+  orderData.orderId = orderId;
+  orderData.paymentMethod = "Cash on Delivery";
+  orderData.paymentStatus = "Pending";
+  
+  // Send to backend WITHOUT payment object for COD
+  fetch("http://localhost:5000/save-order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ 
+      orderData: orderData,
+      payment: null  // ← Important: null for COD
+    })
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Server error');
+    return res.json();
+  })
+  .then(data => {
+    if (data.success) {
+      showSuccessModal(data.orderId);
+      clearCart();
+    } else {
+      alert("Order failed: " + (data.error || "Unknown error"));
+    }
+  })
+  .catch(err => {
+    console.error("Error:", err);
+    alert("Failed to place COD order. Please try again or contact support.");
+  });
+}
+
+    // Process successful payment
+    // Process successful payment
+function processSuccessfulPayment(paymentResponse, orderData) {
+  const orderId = "HSM" + Date.now();
+  orderData.orderId = orderId;
+  orderData.paymentMethod = "Online Payment";
+  orderData.paymentStatus = "Paid";
+  
+  // Send to backend WITH payment object
+  fetch("http://localhost:5000/save-order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ 
+      orderData: orderData,
+      payment: paymentResponse  // ← Full Razorpay response
+    })
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Server error');
+    return res.json();
+  })
+  .then(data => {
+    if (data.success) {
+      showSuccessModal(data.orderId);
+      clearCart();
+    } else {
+      alert("Order verification failed: " + (data.error || "Unknown error"));
+    }
+  })
+  .catch(err => {
+    console.error("Error:", err);
+    alert("Failed to save order. Please contact support with order details.");
+  });
+}               
+
+    // Show success modal
+    function showSuccessModal(orderId) {
+      document.getElementById("order-id").textContent = orderId;
+      document.getElementById("success-modal").classList.remove("hidden");
+    }
+
+    // Clear cart and go home
+    function clearCart() {
+      localStorage.removeItem("cart");
+      cart = [];
+    }
+
+    function goHome() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
