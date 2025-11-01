@@ -502,98 +502,147 @@
     </div>
 
     <script>
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        function updateCartCount() { document.getElementById("cart-count").textContent = cart.reduce((total, item) => total + item.qty, 0); }
-
-        document.getElementById('quantity').addEventListener('change', function () {
-            const qty = parseInt(this.value);
-            const pricePerKit = 549;
-            let discount = 0;
-            if (qty === 2) discount = 20;
-            if (qty === 4) discount = 50;
-            const total = (pricePerKit * qty) - discount;
-            const savings = (610 * qty) - total;
-            document.getElementById('total-price').textContent = `₹${total}`;
-            document.getElementById('total-savings').textContent = `₹${savings}`;
-        });
-
-        function addToCartFromProduct() {
-    const qty = parseInt(document.getElementById('quantity').value);
-    const existingItem = cart.find(item => item.name === "Stone Crusher Kit");
-    
-    const currentQty = existingItem ? existingItem.qty : 0;
-    const newTotal = currentQty + qty;
-    
-    // ✅ Max 10 items per product
-    if (newTotal > 10) {
-        showCartNotification(`Maximum 10 kits allowed. You already have ${currentQty} in cart.`, 'error');
-        return;
+    function getCart() {
+        return JSON.parse(localStorage.getItem("cart")) || [];
     }
-    
-    if (existingItem) { 
-        existingItem.qty += qty; 
-    } else { 
-        cart.push({ 
-            id: Date.now(), 
-            name: "Stone Crusher Kit", 
-            price: 549, 
-            image: "../images/Ajmodh-ras.JPG", 
-            qty: qty 
-        }); 
+
+    function saveCart(cart) {
+        localStorage.setItem("cart", JSON.stringify(cart));
     }
-    
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
-    showCartNotification(`${qty}x Stone Crusher Kit`);
-}
 
-        function buyNowFromProduct() {
-            const qty = parseInt(document.getElementById('quantity').value);
-            localStorage.setItem("cart", JSON.stringify([{ id: Date.now(), name: "Stone Crusher Kit", price: 549, image: "../images/Ajmodh-ras.JPG", qty: qty }]));
-            window.location.href = "../checkout.html";
+    function updateCartCount() {
+        const cart = getCart();
+        document.getElementById("cart-count").textContent = cart.reduce((total, item) => total + item.qty, 0);
+    }
+
+    document.getElementById('quantity').addEventListener('change', function () {
+        const qty = parseInt(this.value);
+        const pricePerKit = 549;
+        let discount = 0;
+        if (qty === 2) discount = 20;
+        if (qty === 4) discount = 50;
+        const total = (pricePerKit * qty) - discount;
+        const savings = (610 * qty) - total;
+        document.getElementById('total-price').textContent = `₹${total}`;
+        document.getElementById('total-savings').textContent = `₹${savings}`;
+    });
+
+    document.getElementById('quantity-mobile').addEventListener('change', function () {
+        const qty = parseInt(this.value);
+        const pricePerKit = 549;
+        let discount = 0;
+        if (qty === 2) discount = 20;
+        if (qty === 4) discount = 50;
+        const total = (pricePerKit * qty) - discount;
+        const savings = (610 * qty) - total;
+        document.getElementById('total-price-mobile').textContent = `₹${total}`;
+        document.getElementById('total-savings-mobile').textContent = `₹${savings}`;
+    });
+
+    function addToCartFromProduct() {
+        const isMobile = window.innerWidth < 1024;
+        const qtyElement = isMobile ? document.getElementById('quantity-mobile') : document.getElementById('quantity');
+        const qty = parseInt(qtyElement.value);
+        
+        let cart = getCart();
+        const existingItem = cart.find(item => item.name === "Stone Crusher Kit");
+        
+        const currentQty = existingItem ? existingItem.qty : 0;
+        const newTotal = currentQty + qty;
+        
+        if (newTotal > 10) {
+            showCartNotification(`Maximum 10 kits allowed. You already have ${currentQty} in cart.`, 'error');
+            return;
         }
-
-        function showMiniCart() {
-            if (cart.length === 0) { alert('Your cart is empty!'); return; }
-            const cartItems = cart.map(item => `${item.name} (${item.qty}x) - ₹${item.price * item.qty}`).join('\n');
-            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            if (confirm(`Cart Items:\n${cartItems}\n\nTotal: ₹${total}\n\nGo to checkout?`)) { window.location.href = '../checkout.html'; }
+        
+        if (existingItem) {
+            existingItem.qty += qty;
+        } else {
+            cart.push({
+                id: Date.now(),
+                name: "Stone Crusher Kit",
+                price: 549,
+                image: "../images/Ajmodh-ras.JPG",
+                qty: qty
+            });
         }
+        
+        saveCart(cart);
+        updateCartCount();
+        showCartNotification(`${qty}x Stone Crusher Kit`);
+    }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            updateCartCount();
-            document.getElementById('quantity').dispatchEvent(new Event('change'));
-        });
+    function buyNowFromProduct() {
+        const isMobile = window.innerWidth < 1024;
+        const qtyElement = isMobile ? document.getElementById('quantity-mobile') : document.getElementById('quantity');
+        const qty = parseInt(qtyElement.value);
+        
+        let cart = getCart();
+        const existingItem = cart.find(item => item.name === "Stone Crusher Kit");
+        
+        if (existingItem) {
+            existingItem.qty += qty;
+        } else {
+            cart.push({
+                id: Date.now(),
+                name: "Stone Crusher Kit",
+                price: 549,
+                image: "../images/Ajmodh-ras.JPG",
+                qty: qty
+            });
+        }
+        
+        saveCart(cart);
+        window.location.href = "../checkout.html";
+    }
 
-        function showCartNotification(itemName, type = 'success') {
-    const notification = document.createElement('div');
-    const bgColor = type === 'error' ? 'bg-red-600' : 'bg-green-600';
-    const icon = type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle';
-    
-    notification.className = `fixed top-20 right-4 ${bgColor} text-white px-4 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300`;
-    notification.innerHTML = `
-        <div class="flex items-center space-x-2">
-            <i class="fas ${icon}"></i>
-            <span>${itemName}${type === 'success' ? ' added to cart!' : ''}</span>
-        </div>
-    `;
+    function showMiniCart() {
+        const cart = getCart();
+        if (cart.length === 0) {
+            alert('Your cart is empty!');
+            return;
+        }
+        const cartItems = cart.map(item => `${item.name} (${item.qty}x) - ₹${item.price * item.qty}`).join('\n');
+        const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        if (confirm(`Cart Items:\n${cartItems}\n\nTotal: ₹${total}\n\nGo to checkout?`)) {
+            window.location.href = '../checkout.html';
+        }
+    }
 
-    document.body.appendChild(notification);
+    document.addEventListener("DOMContentLoaded", function () {
+        updateCartCount();
+        document.getElementById('quantity').dispatchEvent(new Event('change'));
+    });
 
-    setTimeout(() => {
-        notification.classList.remove('translate-x-full');
-    }, 100);
+    function showCartNotification(itemName, type = 'success') {
+        const notification = document.createElement('div');
+        const bgColor = type === 'error' ? 'bg-red-600' : 'bg-green-600';
+        const icon = type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle';
+        
+        notification.className = `fixed top-20 right-4 ${bgColor} text-white px-4 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300`;
+        notification.innerHTML = `
+            <div class="flex items-center space-x-2">
+                <i class="fas ${icon}"></i>
+                <span>${itemName}${type === 'success' ? ' added to cart!' : ''}</span>
+            </div>
+        `;
 
-    setTimeout(() => {
-        notification.classList.add('translate-x-full');
+        document.body.appendChild(notification);
+
         setTimeout(() => {
-            if (document.body.contains(notification)) {
-                document.body.removeChild(notification);
-            }
-        }, 300);
-    }, 3000);
-}
-    </script>
+            notification.classList.remove('translate-x-full');
+        }, 100);
+
+        setTimeout(() => {
+            notification.classList.add('translate-x-full');
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+</script>
 </body>
 
 </html>

@@ -329,35 +329,98 @@
     </section>
 
     <script>
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        function updateCartCount() { document.getElementById("cart-count").textContent = cart.reduce((total, item) => total + item.qty, 0); }
-        function changeMainImage(src) { document.getElementById("main-image").src = src; }
-        document.getElementById('quantity').addEventListener('change', function() {
-            const qty = parseInt(this.value);
-            document.getElementById('total-price').textContent = `₹${350 * qty}`;
-            document.getElementById('total-savings').textContent = `₹${100 * qty}`;
-        });
-        function addToCartFromProduct() {
-            const qty = parseInt(document.getElementById('quantity').value);
-            const existingItem = cart.find(item => item.name === "Giloy Ras");
-            if (existingItem) { existingItem.qty += qty; } 
-            else { cart.push({ id: Date.now(), name: "Giloy Ras", price: 350, image: "../images/Giloy-ras.JPG", qty: qty }); }
-            localStorage.setItem("cart", JSON.stringify(cart));
-            updateCartCount();
-            alert(`${qty}x Giloy Ras added to cart!`);
+    function getCart() {
+        return JSON.parse(localStorage.getItem("cart")) || [];
+    }
+
+    function saveCart(cart) {
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    function updateCartCount() {
+        const cart = getCart();
+        document.getElementById("cart-count").textContent = cart.reduce((total, item) => total + item.qty, 0);
+    }
+
+    function changeMainImage(src) {
+        document.getElementById("main-image").src = src;
+    }
+
+    document.getElementById('quantity').addEventListener('change', function() {
+        const qty = parseInt(this.value);
+        document.getElementById('total-price').textContent = `₹${350 * qty}`;
+        document.getElementById('total-savings').textContent = `₹${100 * qty}`;
+    });
+
+    document.getElementById('quantity-mobile').addEventListener('change', function() {
+        const qty = parseInt(this.value);
+        document.getElementById('total-price-mobile').textContent = `₹${350 * qty}`;
+        document.getElementById('total-savings-mobile').textContent = `₹${100 * qty}`;
+    });
+
+    function addToCartFromProduct() {
+        const isMobile = window.innerWidth < 1024;
+        const qtyElement = isMobile ? document.getElementById('quantity-mobile') : document.getElementById('quantity');
+        const qty = parseInt(qtyElement.value);
+        
+        let cart = getCart();
+        
+        const existingItem = cart.find(item => item.name === "Giloy Ras");
+        if (existingItem) {
+            existingItem.qty += qty;
+        } else {
+            cart.push({
+                id: Date.now(),
+                name: "Giloy Ras",
+                price: 350,
+                image: "../images/Giloy-ras.JPG",
+                qty: qty
+            });
         }
-        function buyNowFromProduct() {
-            const qty = parseInt(document.getElementById('quantity').value);
-            localStorage.setItem("cart", JSON.stringify([{ id: Date.now(), name: "Giloy Ras", price: 350, image: "../images/Giloy-ras.JPG", qty: qty }]));
-            window.location.href = "../checkout.html";
+
+        saveCart(cart);
+        updateCartCount();
+        alert(`${qty}x Giloy Ras added to cart!`);
+    }
+
+    function buyNowFromProduct() {
+        const isMobile = window.innerWidth < 1024;
+        const qtyElement = isMobile ? document.getElementById('quantity-mobile') : document.getElementById('quantity');
+        const qty = parseInt(qtyElement.value);
+        
+        let cart = getCart();
+        
+        const existingItem = cart.find(item => item.name === "Giloy Ras");
+        if (existingItem) {
+            existingItem.qty += qty;
+        } else {
+            cart.push({
+                id: Date.now(),
+                name: "Giloy Ras",
+                price: 350,
+                image: "../images/Giloy-ras.JPG",
+                qty: qty
+            });
         }
-        function showMiniCart() {
-            if (cart.length === 0) { alert('Your cart is empty!'); return; }
-            const cartItems = cart.map(item => `${item.name} (${item.qty}x) - ₹${item.price * item.qty}`).join('\n');
-            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            if (confirm(`Cart Items:\n${cartItems}\n\nTotal: ₹${total}\n\nGo to checkout?`)) { window.location.href = '../checkout.html'; }
+
+        saveCart(cart);
+        window.location.href = "../checkout.html";
+    }
+
+    function showMiniCart() {
+        const cart = getCart();
+        if (cart.length === 0) {
+            alert('Your cart is empty!');
+            return;
         }
-        document.addEventListener("DOMContentLoaded", updateCartCount);
-    </script>
+        const cartItems = cart.map(item => `${item.name} (${item.qty}x) - ₹${item.price * item.qty}`).join('\n');
+        const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        if (confirm(`Cart Items:\n${cartItems}\n\nTotal: ₹${total}\n\nGo to checkout?`)) {
+            window.location.href = '../checkout.html';
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", updateCartCount);
+</script>
 </body>
 </html>

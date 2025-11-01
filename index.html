@@ -2418,6 +2418,17 @@ Message: ${message}`;
             document.body.style.overflow = "auto";
         }
     </script>
+    <button onclick="debugCart()" style="position: fixed; top: 10px; right: 10px; z-index: 9999; background: red; color: white; padding: 10px; border: none; cursor: pointer; border-radius: 5px;">
+    DEBUG CART
+</button>
+
+<script>
+function debugCart() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    alert("Cart Items: " + cart.length + "\n\n" + JSON.stringify(cart, null, 2));
+    console.log("Cart contents:", cart);
+}
+</script>
 </body>
 </html>
 </body>

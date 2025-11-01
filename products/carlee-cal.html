@@ -354,132 +354,121 @@
     </section>
 
     <script>
-        // Load cart from localStorage
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    function getCart() {
+        return JSON.parse(localStorage.getItem("cart")) || [];
+    }
+
+    function saveCart(cart) {
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    function updateCartCount() { 
+        const cart = getCart();
+        const count = cart.reduce((total, item) => total + item.qty, 0);
+        document.getElementById("cart-count").textContent = count;
+    }
+    
+    function changeMainImage(src) { 
+        document.getElementById("main-image").src = src; 
+    }
+    
+    function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.style.background = type === 'success' ? '#22c55e' : '#ef4444';
+        notification.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+            </div>
+        `;
+        document.body.appendChild(notification);
         
-        // Update cart count display
-        function updateCartCount() { 
-            const count = cart.reduce((total, item) => total + item.qty, 0);
-            document.getElementById("cart-count").textContent = count;
+        setTimeout(() => {
+            notification.classList.add('hide');
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+    
+    document.getElementById('quantity').addEventListener('change', function() {
+        const qty = parseInt(this.value);
+        document.getElementById('total-price').textContent = `₹${299 * qty}`;
+        document.getElementById('total-savings').textContent = `₹${100 * qty}`;
+    });
+    
+    document.getElementById('quantity-mobile').addEventListener('change', function() {
+        const qty = parseInt(this.value);
+        document.getElementById('total-price-mobile').textContent = `₹${299 * qty}`;
+        document.getElementById('total-savings-mobile').textContent = `₹${100 * qty}`;
+    });
+    
+    function addToCartFromProduct(source) {
+        const qtyElementId = source === 'mobile' ? 'quantity-mobile' : 'quantity';
+        const qty = parseInt(document.getElementById(qtyElementId).value);
+        
+        let cart = getCart();
+        const existingItem = cart.find(item => item.name === "Carlee Cal");
+        
+        if (existingItem) { 
+            existingItem.qty += qty;
+            showNotification(`Updated cart: ${existingItem.qty}x Carlee Cal`);
+        } else { 
+            cart.push({ 
+                id: Date.now(), 
+                name: "Carlee Cal", 
+                price: 299, 
+                image: "../images/carlee-cal.JPG", 
+                qty: qty 
+            });
+            showNotification(`${qty}x Carlee Cal added to cart!`);
         }
         
-        // Change main product image
-        function changeMainImage(src) { 
-            document.getElementById("main-image").src = src; 
+        saveCart(cart);
+        updateCartCount();
+    }
+    
+    function buyNowFromProduct(source) {
+        const qtyElementId = source === 'mobile' ? 'quantity-mobile' : 'quantity';
+        const qty = parseInt(document.getElementById(qtyElementId).value);
+        
+        let cart = getCart();
+        const existingItem = cart.find(item => item.name === "Carlee Cal");
+        
+        if (existingItem) { 
+            existingItem.qty += qty;
+        } else { 
+            cart.push({ 
+                id: Date.now(), 
+                name: "Carlee Cal", 
+                price: 299, 
+                image: "../images/carlee-cal.JPG", 
+                qty: qty 
+            });
         }
         
-        // Show notification
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.style.background = type === 'success' ? '#22c55e' : '#ef4444';
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-                    <span>${message}</span>
-                </div>
-            `;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.add('hide');
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
+        saveCart(cart);
+        window.location.href = "../checkout.html";
+    }
+    
+    function showMiniCart() {
+        const cart = getCart();
+        if (cart.length === 0) { 
+            showNotification('Your cart is empty!', 'error'); 
+            return; 
         }
         
-        // Update price display when quantity changes
-        document.getElementById('quantity').addEventListener('change', function() {
-            const qty = parseInt(this.value);
-            document.getElementById('total-price').textContent = `₹${299 * qty}`;
-            document.getElementById('total-savings').textContent = `₹${100 * qty}`;
-        });
+        const cartItems = cart.map(item => 
+            `${item.name} (${item.qty}x) - ₹${item.price * item.qty}`
+        ).join('\n');
         
-        // Mobile quantity sync
-        document.getElementById('quantity-mobile').addEventListener('change', function() {
-            const qty = parseInt(this.value);
-            document.getElementById('total-price-mobile').textContent = `₹${299 * qty}`;
-            document.getElementById('total-savings-mobile').textContent = `₹${100 * qty}`;
-        });
+        const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
         
-        // Add to cart function - FIXED VERSION
-        function addToCartFromProduct(source) {
-            const qtyElementId = source === 'mobile' ? 'quantity-mobile' : 'quantity';
-            const qty = parseInt(document.getElementById(qtyElementId).value);
-            
-            // Check if product already exists in cart
-            const existingItem = cart.find(item => item.name === "Carlee Cal");
-            
-            if (existingItem) { 
-                // Update quantity if exists
-                existingItem.qty += qty;
-                showNotification(`Updated cart: ${existingItem.qty}x Carlee Cal`);
-            } else { 
-                // Add new item to cart
-                cart.push({ 
-                    id: Date.now(), 
-                    name: "Carlee Cal", 
-                    price: 299, 
-                    image: "../images/carlee-cal.JPG", 
-                    qty: qty 
-                });
-                showNotification(`${qty}x Carlee Cal added to cart!`);
-            }
-            
-            // Save to localStorage
-            localStorage.setItem("cart", JSON.stringify(cart));
-            updateCartCount();
+        if (confirm(`Cart Items:\n${cartItems}\n\nTotal: ₹${total}\n\nGo to checkout?`)) { 
+            window.location.href = '../checkout.html'; 
         }
-        
-        // Buy Now function - FIXED VERSION
-        // Now it adds to cart instead of replacing it!
-        function buyNowFromProduct(source) {
-            const qtyElementId = source === 'mobile' ? 'quantity-mobile' : 'quantity';
-            const qty = parseInt(document.getElementById(qtyElementId).value);
-            
-            // Check if product already exists in cart
-            const existingItem = cart.find(item => item.name === "Carlee Cal");
-            
-            if (existingItem) { 
-                // Update quantity if exists
-                existingItem.qty += qty;
-            } else { 
-                // Add new item to cart
-                cart.push({ 
-                    id: Date.now(), 
-                    name: "Carlee Cal", 
-                    price: 299, 
-                    image: "../images/carlee-cal.JPG", 
-                    qty: qty 
-                });
-            }
-            
-            // Save updated cart
-            localStorage.setItem("cart", JSON.stringify(cart));
-            
-            // Redirect to checkout with ALL items in cart
-            window.location.href = "../checkout.html";
-        }
-        
-        // Show mini cart popup
-        function showMiniCart() {
-            if (cart.length === 0) { 
-                showNotification('Your cart is empty!', 'error'); 
-                return; 
-            }
-            
-            const cartItems = cart.map(item => 
-                `${item.name} (${item.qty}x) - ₹${item.price * item.qty}`
-            ).join('\n');
-            
-            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            
-            if (confirm(`Cart Items:\n${cartItems}\n\nTotal: ₹${total}\n\nGo to checkout?`)) { 
-                window.location.href = '../checkout.html'; 
-            }
-        }
-        
-        // Initialize on page load
-        document.addEventListener("DOMContentLoaded", updateCartCount);
-    </script>
+    }
+    
+    document.addEventListener("DOMContentLoaded", updateCartCount);
+</script>
 </body>
 </html>
